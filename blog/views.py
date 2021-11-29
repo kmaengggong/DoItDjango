@@ -7,7 +7,6 @@ class PostList(ListView):
 
 class PostDetail(DetailView):
     model = Post
-    #test
 
 '''
 def index(request):

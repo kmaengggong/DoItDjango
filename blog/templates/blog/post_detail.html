@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
         <!-- Custom CSS -->
         <link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
-
+        <!-- For Icon -->
         <script src="https://kit.fontawesome.com/664be84b0e.js" crossorigin="anonymous"></script>
 
         <title>{{ post.title }} - Blog</title>
@@ -106,6 +106,21 @@
                         <!-- Post content-->
                         <section class="mb-5">
                             <p>{{ post.content }}</p>
+                            {% if post.file_upload %}
+                                <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" download>
+                                    Download:
+                                    {% if post.get_file_ext == 'csv' %}
+                                        <i class="fas fa-file-csv"></i>
+                                    {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                                        <i class="fas fa-file-excel"></i>
+                                    {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                                        <i class="fas fa-file-word"></i>
+                                    {% else %}
+                                        <i class="far fa-file"></i>
+                                    {% endif %}
+                                    {{ post.get_file_name }}
+                                </a>
+                            {% endif %}
                         </section>
                     </article>
                     <!-- Comments section-->

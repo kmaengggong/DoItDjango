@@ -12,7 +12,7 @@
                     <a href={{ p.get_absolute_url }}><img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random image" /></a>
                 {% endif %}
                 <div class="card-body">
-                    <div class="Small text-muted">{{ p.created_at }} by <a href="#!">kmaengggong(not yet)</a></div>
+                    <div class="Small text-muted">{{ p.created_at }} by <a href="#!">{{ p.author | upper }}</a></div>
                     <h2 class="card-title h4">{{ p.title }}</h2>
                     {% if p.hook_text %}
                         <h5 class="text-muted">{{ p.hook_text }}</h5>

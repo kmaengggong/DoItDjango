@@ -32,10 +32,6 @@
                             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</a>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </nav>
@@ -70,27 +66,31 @@
 
         <div class="container my-3">
             <div class="row">
-                <div class="col-md-8 col-lg-9">
+                <div class="col-md-8 col-lg-9" id="main-area">
                     <h1>Blog</h1>
                     <!-- Blog Post -->
-                    {% for p in post_list %}
-                        <div class="card mb-4">
-                            {% if p.head_image %}
-                                <a href={{ p.get_absolute_url }}><img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image" /></a>
-                            {% else %}
-                                <a href={{ p.get_absolute_url }}><img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random image" /></a>
-                            {% endif %}
-                            <div class="card-body">
-                                <div class="Small text-muted">{{ p.created_at }} by <a href="#!">kmaengggong(not yet)</a></div>
-                                <h2 class="card-title h4">{{ p.title }}</h2>
-                                {% if p.hook_text %}
-                                    <h5 class="text-muted">{{ p.hook_text }}</h5>
+                    {% if post_list.exists %}
+                        {% for p in post_list %}
+                            <div class="card mb-4">
+                                {% if p.head_image %}
+                                    <a href={{ p.get_absolute_url }}><img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image" /></a>
+                                {% else %}
+                                    <a href={{ p.get_absolute_url }}><img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random image" /></a>
                                 {% endif %}
-                                <p class="card-text">{{ p.content | truncatewords:45 }}</p>
-                                <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more -></a>
+                                <div class="card-body">
+                                    <div class="Small text-muted">{{ p.created_at }} by <a href="#!">kmaengggong(not yet)</a></div>
+                                    <h2 class="card-title h4">{{ p.title }}</h2>
+                                    {% if p.hook_text %}
+                                        <h5 class="text-muted">{{ p.hook_text }}</h5>
+                                    {% endif %}
+                                    <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                                    <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more -></a>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <h3>아직 게시물이 없습니다</h3>
+                    {% endif %}
                     <!-- Pagination -->
                     <nav aria-label="Pagination">
                         <hr class="my-0" >

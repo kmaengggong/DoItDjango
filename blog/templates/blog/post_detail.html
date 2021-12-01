@@ -34,9 +34,9 @@
         <section class="mb-5">
             <p>{{ post.content }}</p>
 
-            {% if post.tags.exists %}
+            {% if post.tag.exists %}
                 <i class="fas fa-tags"></i>
-            {% for tag in post.tags.iterator %}
+            {% for tag in post.tag.iterator %}
                 <a href="{{ tag.get_absolute_url }}">
                     <span class="badge rounded-pill bg-secondary">{{ tag }}</span>
                 </a>

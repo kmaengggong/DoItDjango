@@ -4,7 +4,10 @@
     <h1>
         Blog
         {% if category %}
-            <span class="badge bg-secondary">{{ category }}</span>
+            <span class="badge bg-primary"><i class="fas fa-list"></i> {{ category }} ({{ category.post_set.count }})</span>
+        {% endif %}
+        {% if tag %}
+            <span class="badge bg-secondary"><i class="fas fa-tags"></i> {{ tag }} ({{ tag.post_set.count }})</span>
         {% endif %}
     </h1>
     <!-- Blog Post -->
@@ -29,9 +32,9 @@
                         <h5 class="text-muted">{{ p.hook_text }}</h5>
                     {% endif %}
                     <p class="card-text">{{ p.content | truncatewords:45 }}</p>
-                    {% if p.tags.exists %}
+                    {% if p.tag.exists %}
                         <i class="fas fa-tags"></i>
-                        {% for tag in p.tags.iterator %}
+                        {% for tag in p.tag.iterator %}
                             <a href="{{ tag.get_absolute_url }}">
                                 <span class="badge rounded-pill bg-secondary">{{ tag }}</span>
                             </a>

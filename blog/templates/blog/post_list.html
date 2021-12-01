@@ -18,16 +18,27 @@
                 {% endif %}
                 <div class="card-body">
                     {% if p.category %}
-                        <span class="badge bg-secondary" style="float:right">{{ p.category }}</span>
+                        <span class="badge bg-primary" style="float:right">{{ p.category }}</span>
                     {% else %}
-                        <span class="badge bg-secondary" style="float:right">미분류</span>
+                        <span class="badge bg-primary" style="float:right">미분류</span>
                     {% endif %}
                     <div class="Small text-muted">{{ p.created_at }} by <a href="#!">{{ p.author | upper }}</a></div>
+                    <hr>
                     <h2 class="card-title h4">{{ p.title }}</h2>
                     {% if p.hook_text %}
                         <h5 class="text-muted">{{ p.hook_text }}</h5>
                     {% endif %}
                     <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                    {% if p.tags.exists %}
+                        <i class="fas fa-tags"></i>
+                        {% for tag in p.tags.iterator %}
+                            <a href="{{ tag.get_absolute_url }}">
+                                <span class="badge rounded-pill bg-secondary">{{ tag }}</span>
+                            </a>
+                        {% endfor %}
+                        <br/>
+                        <br/>
+                    {% endif %}
                     <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more -></a>
                 </div>
             </div>

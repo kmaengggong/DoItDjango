@@ -99,11 +99,15 @@ class TestView(TestCase):
         response = self.client.get(self.post_001.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
+
         self.navbar_test(soup)
+        self.category_test(soup)
+
         self.assertIn(self.post_001.title, soup.title.text)
         main_area = soup.find('div', id='main-area')
         post_area = main_area.find('div', id='post-area')
         self.assertIn(self.post_001.title, post_area.text)
+        self.assertIn(self.category_programming.name, post_area.text)
         # 2.5 작성자가 포스트 영역에 있다
         self.assertIn(self.post_001.content, post_area.text)
         self.assertIn(self.user_wtf.username.upper(), post_area.text)

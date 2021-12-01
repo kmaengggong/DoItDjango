@@ -12,14 +12,12 @@
                     <a href={{ p.get_absolute_url }}><img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random image" /></a>
                 {% endif %}
                 <div class="card-body">
-                    <div class="Small text-muted">
-                        {{ p.created_at }} by <a href="#!">{{ p.author | upper }}</a>
-                        {% if p.category %}
-                            <span class="badge bg-secondary" style="float:right">{{ p.category }}</span>
-                        {% else %}
-                            <span class="badge bg-secondary" style="float:right">미분류</span>
-                        {% endif %}
-                    </div>
+                    {% if p.category %}
+                        <span class="badge bg-secondary" style="float:right">{{ p.category }}</span>
+                    {% else %}
+                        <span class="badge bg-secondary" style="float:right">미분류</span>
+                    {% endif %}
+                    <div class="Small text-muted">{{ p.created_at }} by <a href="#!">{{ p.author | upper }}</a></div>
                     <h2 class="card-title h4">{{ p.title }}</h2>
                     {% if p.hook_text %}
                         <h5 class="text-muted">{{ p.hook_text }}</h5>

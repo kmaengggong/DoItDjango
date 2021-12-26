@@ -9,6 +9,8 @@ class TestView(TestCase):
 
         self.user_wtf = User.objects.create_user(username='wtf', password='dotawtfman')
         self.user_dota = User.objects.create_user(username='dota', password='dotawtfman')
+        self.user_dota.is_staff = True
+        self.user_dota.save()
 
         self.category_programming = Category.objects.create(name='programming', slug='programming')
         self.category_biology = Category.objects.create(name='biology', slug='biology')
@@ -170,9 +172,12 @@ class TestView(TestCase):
         response = self.client.get('/blog/create_post/')
         self.assertNotEqual(response.status_code, 200)
 
-        self.client.login(username='trump', pssword='somepassword')
+        self.client.login(username='wtf', password='dotawtfman')
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 200)
 
-        response = self.client.get('/blog/create_post')
+        self.client.login(username='dota', password='dotawtfman')
+        response = self.client.get('/blog/create_post/')
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
 
@@ -189,4 +194,4 @@ class TestView(TestCase):
         )
         last_post = Post.objects.last()
         self.assertEqual(last_post.title, 'Post Form 만들기')
-        self.assertEqual(last_post.author.username, 'trump')
+        self.assertEqual(last_post.author.username, 'dota')

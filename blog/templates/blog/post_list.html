@@ -11,6 +11,9 @@
 
     <h1>
         Blog
+        {% if search_info %}
+            <small class="text-muted">{{ search_info}}</small>
+        {% endif %}
         {% if category %}
             <span class="badge bg-primary"><i class="fas fa-list"></i> {{ category }} ({{ category.post_set.count }})</span>
         {% endif %}

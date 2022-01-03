@@ -98,13 +98,38 @@
                     </h5>
                     <div style="float:right">
                         {% if user.is_authenticated and comment.author == user %}
-                            <a role="button" class="btn btn-sm btn-info" style="float:right" id="comment-{{ comment.pk }}-update-btn" href="/blog/update_comment/{{ comment.pk }}/">edit</a>
+                            <a role="button" class="btn btn-sm btn-info" id="comment-{{ comment.pk }}-update-btn" href="/blog/update_comment/{{ comment.pk }}/">edit</a>
+                            <a role="button" class="btn btn-sm btn-danger" id="comment-{{ comment.pk }}-delete-modal-btn" href="#" data-bs-toggle="modal" data-bs-target="#deleteCommentModal-{{ comment.pk }}">delete</a>
                         {% endif %}
                     </div>
+
+
+
                     <p>{{ comment.content | linebreaks }}</p>
                     {% if comment.created_at != comment.modified_at %}
-                        <p class="text-muted float-right"><small>Updated: {{ comment.modified_at }} / {{ comment.created_at }}</small></p>
+                        <p class="text-muted float-right"><small>Updated: {{ comment.modified_at }}</small></p>
                     {% endif %}
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteCommentModal-{{ comment.pk }}" tabindex="-1" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Are You Sure?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        <!--<span aria-hidden="true">&times;</span>-->
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <del>{{ comment | linebreaks }}</del>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <a role="button" class="btn btn-danger" href="/blog/delete_comment/{{ comment.pk }}">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}

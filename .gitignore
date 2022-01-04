@@ -132,3 +132,7 @@ dmypy.json
 .idea/
 migrations/
 _media/
+
+# Docker
+.env.prod
+.env.prod.db
